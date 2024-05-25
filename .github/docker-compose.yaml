@@ -1,0 +1,20 @@
+version: "0.0.1"
+services:
+  imputer:
+    image: egpivo/imputer:latest
+    volumes:
+      - ./datasets/:/imputer/datasets
+      - ./configs/:/imputer/configs
+      - ./results:/imputer/results
+    ports:
+      - 8001:8080
+    environment:
+      PORT: 8080
+      CONFIG_FILE: "config_SSSDS4-NYISO-3-mix.json"  # Specify the new config file here
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
