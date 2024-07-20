@@ -108,14 +108,112 @@ install_python_package() {
 
   echo -e "${FG_YELLOW}Installing python package${FG_RESET}"
   poetry lock --no-update
-  poetry install
+  poetry install --no-root
+
+  # Check if README.md exists
+  if [ ! -f README.md ]; then
+    echo "Temporary README.md" > README.md
+    TEMP_README=true
+  else
+    TEMP_README=false
+  fi
+
+  # Build the project using poetry
   poetry build
-  if [ -d "${PWD}"/dist/ ]; then
+
+  # Install the built package if the build was successful
+  if [ -d "${PWD}/dist/" ]; then
     pip install dist/*.tar.gz
     rm -r dist
   else
-    echo -e "${FG_RED}Failed to install python package${FG_RESET}"
+    echo -e "Failed to install python package"
   fi
 
+  # Remove the temporary README.md if it was created
+  if [ "$TEMP_README" = true ]; then
+    rm README.md
+  fi
+
+  # Install 3rd party packages when  CUDA driver is installed
+  if command -v nvcc &> /dev/null; then
+    echo -e "${FG_YELLOW}CUDA driver detected. Installing extensions_cauchy${FG_RESET}"
+    install_extensions_cauchy
+  else
+    echo -e "${FG_YELLOW}CUDA driver not found. Pass install Cauchy Module${FG_RESET}"
+  fi
   popd || exit
+}
+
+
+install_extensions_cauchy() {
+  # See: https://github.com/state-spaces/s4/tree/v3.0.0
+  # Notes:
+  #    1. Only install when NVIDIA driver is detected.
+  #    2. Function `cauchy_mult` will be utilized from this installation.
+  #
+  # Check if cauchy_mult is already installed and if the file exists
+
+  if pip list | grep -q "cauchy_mult" && [ -f "sssd/core/layers/s4/hippo/cauchy.py" ]; then
+    echo -e "${FG_GREEN}Cauchy is installed.${FG_RESET}"
+    return "${SUCCESS_EXITCODE}"
+  else
+    echo -e "${FG_RED}Cauchy is not installed or the cauchy.py file is missing.${FG_RESET}"
+  fi
+
+  # Clone the repository
+  git clone --depth 1 --branch v3.0.0 https://github.com/state-spaces/s4.git || {
+    echo -e "${FG_RED}Error: Failed to clone the repository.${FG_RESET}"
+    return "${ERROR_EXITCODE}"
+  }
+
+  # Change directory
+  pushd "s4/extensions/cauchy" || {
+    echo -e "${FG_RED}Error: Failed to navigate to the directory.${FG_RESET}"
+    return "${ERROR_EXITCODE}"
+  }
+
+  # Update the `setup.py` to force compiling CUDA extensions in non-GPU envs.
+  cp ${CONDA_DIR}/cauchy_mult_setup.py setup.py
+
+  # Install the package
+  echo -e "${FG_YELLOW}Installing cauchy-mult CUDA-Python package${FG_RESET}"
+  TORCH_CUDA_ARCH_LIST="6.1+PTX" python setup.py install || {
+    echo -e "${FG_RED}Error: Failed to install the cauchy-mult package.${FG_RESET}"
+    popd || return "${ERROR_EXITCODE}"
+    rm -rf "s4"
+    return "${ERROR_EXITCODE}"
+  }
+
+  # Clean up
+  popd || {
+    echo -e "${FG_RED}Error: Failed to return to the previous directory.${FG_RESET}"
+    return "${ERROR_EXITCODE}"
+  }
+
+  echo -e "${FG_YELLOW}Copy main cauchy operation to HiPPO module${FG_RESET}"
+  cp "s4/extensions/cauchy/cauchy.py" "sssd/core/layers/s4/hippo/cauchy.py"
+  rm -rf "s4"
+}
+
+activate_conda_environment() {
+  local CONDA_ENV=$1
+  initialize_conda
+  if [ "$(command -v conda)" ]; then
+    echo -e "${FG_YELLOW}Activating Conda Env: ${CONDA_ENV}${FG_RESET}"
+    conda activate ${CONDA_ENV}
+  else
+    echo -e "${FG_RED}Activation Failed. Conda is not installed.${FG_RESET}"
+  fi
+}
+
+update_conda_environment() {
+  local PACKAGE_BASE_PATH=$1
+  local CONDA_ENV=$2
+
+  if [ "$(command -v conda)" ]; then
+    echo -e "${FG_YELLOW}Updating Conda environment - ${CONDA_ENV}${FG_RESET}"
+    bash "${CONDA_DIR}/build_conda_env.sh" --conda_env ${CONDA_ENV}
+  else
+    echo -e "${FG_RED}Update Failed. Conda is not installed.${FG_RESET}"
+  fi
 }

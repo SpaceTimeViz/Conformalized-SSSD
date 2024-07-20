@@ -10,7 +10,7 @@
 #   -o, --output_file     Specify the output file path to save the Conda environment path
 #
 # Example:
-#   Find the path of the default Conda environment 'imputer':
+#   Find the path of the default Conda environment 'sssd':
 #       find_conda_env_path.sh
 #
 #   Find the path of a specific Conda environment 'my_env' and save it to a custom file:
@@ -31,7 +31,7 @@ source "${EXIT_CODE_PATH}"
 set +a
 
 # Default values for options
-CONDA_ENV="imputer"
+CONDA_ENV="sssd"
 OUTPUT_FILE=""
 
 # Parse arguments

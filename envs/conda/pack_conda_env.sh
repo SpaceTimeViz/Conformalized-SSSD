@@ -8,13 +8,13 @@
 #   pack_conda_env.sh [OPTIONS]
 #
 # Options:
-#   -c, --conda_env       Conda environment name (default: 'imputer')
+#   -c, --conda_env       Conda environment name (default: 'sssd')
 #   -t, --target_project_dir
 #                         Target project directory (default: current directory)
 #   -d, --destination     Destination directory for the packed environment zip file (default: current directory)
 #
 # Example:
-#   Pack the default Conda environment 'imputer':
+#   Pack the default Conda environment 'sssd':
 #       pack_conda_env.sh
 #
 #   Pack a specific Conda environment 'my_env' and save it to the 'packages' directory:
@@ -33,7 +33,7 @@ source "${EXIT_CODE_PATH}"
 set +a
 
 # Default values for options
-CONDA_ENV="imputer"
+CONDA_ENV="sssd"
 TARGET_PROJECT_DIR="${PACKAGE_BASE_PATH}"
 DESTINATION="${PACKAGE_BASE_PATH}"
 

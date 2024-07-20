@@ -8,7 +8,7 @@
 #   -c, --conda_env       Specifies the name of the Conda environment (default: 'sssd')
 #
 # Examples:
-#   1. Build the default Conda environment 'imputer':
+#   1. Build the default Conda environment 'sssd':
 #       ./build_conda_env.sh
 #
 #   2. Build a specific Conda environment 'my_env':
@@ -28,7 +28,7 @@ source "${EXIT_CODE_PATH}"
 set +a
 
 # Default values for options
-CONDA_ENV="imputer"
+CONDA_ENV="sssd"
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do

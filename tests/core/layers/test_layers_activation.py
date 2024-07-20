@@ -1,7 +1,7 @@
 import pytest
 import torch.nn as nn
 
-from imputer.core.layers.activation import Activation
+from sssd.core.layers.activation import Activation
 
 
 def test_activation_identity():

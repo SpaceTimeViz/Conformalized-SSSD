@@ -2,7 +2,7 @@ import pytest
 import torch
 from torch.testing import assert_allclose
 
-from imputer.core.layers.s4.hippo.state_space import SSKernelNPLR
+from sssd.core.layers.s4.hippo.state_space import SSKernelNPLR
 
 seed = 42
 torch.manual_seed(seed)
