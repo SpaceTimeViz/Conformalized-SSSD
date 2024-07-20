@@ -28,7 +28,7 @@ source "${EXIT_CODE_PATH}"
 set +a
 
 # Default values for options
-CONDA_ENV="sssd"
+CONDA_ENV="sssd-cp"
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do

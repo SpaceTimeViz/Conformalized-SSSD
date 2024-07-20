@@ -9,7 +9,7 @@
 
 
 # Set default values
-KERNEL_ENV="sssd"
+KERNEL_ENV="sssd-cp"
 PORT="8501"
 DOES_UPDATE_CONDA="FALSE"
 

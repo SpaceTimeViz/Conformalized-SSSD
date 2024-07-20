@@ -33,7 +33,7 @@ source "${EXIT_CODE_PATH}"
 set +a
 
 # Default values for options
-CONDA_ENV="sssd"
+CONDA_ENV="sssd-cp"
 TARGET_PROJECT_DIR="${PACKAGE_BASE_PATH}"
 DESTINATION="${PACKAGE_BASE_PATH}"
 
