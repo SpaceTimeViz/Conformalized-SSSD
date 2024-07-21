@@ -1,5 +1,5 @@
 # Stage 1: Build stage
-FROM egpivo/sssd:latest AS builder
+FROM egpivo/sssd-cp:latest AS builder
 
 LABEL authors="Joseph Wang <egpivo@gmail.com>"\
       version="0.0.1"
