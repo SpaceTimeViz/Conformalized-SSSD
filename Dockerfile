@@ -1,7 +1,7 @@
 # Stage 1: Build stage
 FROM egpivo/sssd-cp:v0.0.1 AS builder
 
-LABEL authors="Joseph Wang <egpivo@gmail.com>"\
+LABEL authors="Joseph Wang <egpivo@gmail.com>" \
       version="0.0.1"
 
 # Set the working directory in the container
@@ -10,9 +10,9 @@ WORKDIR /sssd_cp
 # Copy only necessary project files and Conda environment setup
 COPY scripts/ scripts/
 COPY envs/ envs/
-COPY bin bin/
-COPY notebooks notebooks/
-COPY sssd_cp sssd_cp/
+COPY bin/ bin/
+COPY notebooks/ notebooks/
+COPY sssd_cp/ sssd_cp/
 COPY pyproject.toml pyproject.toml
 COPY README.md README.md
 
@@ -26,6 +26,9 @@ RUN bash envs/conda/build_conda_env.sh && \
 # Stage 2: Final production image
 FROM continuumio/miniconda3:latest
 
+LABEL authors="Joseph Wang <egpivo@gmail.com>" \
+      version="0.0.1"
+
 # Set the working directory in the container
 WORKDIR /sssd_cp
 
@@ -37,11 +40,13 @@ ENV PATH /opt/conda/envs/sssd-cp/bin:$PATH
 RUN echo "conda activate sssd-cp" >> ~/.bashrc
 
 # Copy necessary files from the build stage
-COPY --from=builder /sssd_cp/bin bin/
-COPY --from=builder /sssd_cp/scripts scripts/
-COPY --from=builder /sssd_cp/envs envs/
-COPY --from=builder /sssd_cp/notebooks notebooks/
-COPY --from=builder /sssd_cp/sssd_cp sssd_cp/
+COPY --from=builder /sssd_cp/bin/ bin/
+COPY --from=builder /sssd_cp/scripts/ scripts/
+COPY --from=builder /sssd_cp/envs/ envs/
+COPY --from=builder /sssd_cp/notebooks/ notebooks/
+COPY --from=builder /sssd_cp/sssd_cp/ sssd_cp/
 COPY --from=builder /sssd_cp/pyproject.toml pyproject.toml
+COPY --from=builder /sssd_cp/README.md README.md
 
+# Set the entrypoint
 ENTRYPOINT ["/bin/bash", "-c", "/bin/bash scripts/docker/$ENTRYPOINT_SCRIPT"]

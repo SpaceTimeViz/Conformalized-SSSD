@@ -157,18 +157,17 @@ def sampling(
                     x = x * (1 - mask).float() + cond * mask.float()
                 diffusion_steps = (t * torch.ones((batch_size, 1))).to(
                     device
-                )  # use the corresponding reverse step
+                )
                 epsilon_theta = net(
                     (x, cond, mask, diffusion_steps)
-                )  # predict \epsilon according to \epsilon_\theta
-                # update x_{t-1} to \mu_\theta(x_t)
+                )
                 x = (
                     x - (1 - Alpha[t]) / torch.sqrt(1 - Alpha_bar[t]) * epsilon_theta
                 ) / torch.sqrt(Alpha[t])
                 if t > 0:
                     x = x + Sigma[t] * std_normal(
                         (batch_size, channels, length), device
-                    )  # add the variance term to x_{t-1}
+                    )
 
             all_samples.append(x.cpu().numpy())
 
