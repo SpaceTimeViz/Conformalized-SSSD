@@ -42,7 +42,7 @@ build-docker:
 
 push-docker:
 	@echo "Pushing Docker image to Docker Hub..."
-	@docker push $(DOCKER_USERNAME)/sssd:latest
+	@docker push $(DOCKER_USERNAME)/sssd-cp:latest
 
 run-docker-diffusion:
 	@echo "Starting Docker Compose for diffusion process..."

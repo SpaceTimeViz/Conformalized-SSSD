@@ -34,10 +34,10 @@ ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_P
 WORKDIR /sssd
 
 # Copy the Conda environment directory from the build stage to the appropriate location
-COPY --from=builder /opt/conda/envs/sssd_cp/ /opt/conda/envs/sssd_cp/
+COPY --from=builder /opt/conda/envs/sssd-cp/ /opt/conda/envs/sssd-cp/
 
 # Set up Conda environment
-ENV PATH /opt/conda/envs/sssd_cp/bin:$PATH
+ENV PATH /opt/conda/envs/sssd-cp/bin:$PATH
 RUN echo "conda activate sssd-cp" >> ~/.bashrc
 
 # Copy necessary files from the build stage
