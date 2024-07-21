@@ -1,5 +1,5 @@
 # Stage 1: Build stage
-FROM pytorch/pytorch:2.2.0-cuda12.1-cudnn8-devel AS builder
+FROM egpivo/sssd:latest AS builder
 
 LABEL authors="Joseph Wang <egpivo@gmail.com>"\
       version="0.0.1"
@@ -25,10 +25,6 @@ RUN bash envs/conda/build_conda_env.sh && \
 
 # Stage 2: Final production image
 FROM continuumio/miniconda3:latest
-
-# Set environment variables for CUDA
-ENV PATH=/opt/conda/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
-ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 # Set the working directory in the container
 WORKDIR /sssd
