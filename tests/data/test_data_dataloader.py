@@ -2,7 +2,7 @@ import pytest
 import torch
 from torch.utils.data import DataLoader
 
-from sssd.data.dataloader import ArDataLoader
+from sssd_cp.data.dataloader import ArDataLoader
 
 
 @pytest.fixture

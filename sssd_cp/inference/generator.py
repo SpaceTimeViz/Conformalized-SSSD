@@ -7,9 +7,9 @@ import torch
 from sklearn.metrics import mean_absolute_percentage_error, mean_squared_error
 from torch.utils.data import DataLoader
 
-from sssd.core.model_specs import MASK_FN
-from sssd.utils.logger import setup_logger
-from sssd.utils.utils import find_max_epoch, sampling
+from sssd_cp.core.model_specs import MASK_FN
+from sssd_cp.utils.logger import setup_logger
+from sssd_cp.utils.utils import find_max_epoch, sampling
 
 LOGGER = setup_logger()
 

@@ -1,6 +1,6 @@
 import pytest
 
-from sssd.core.layers.s4.hippo.hippo import HippoSSKernel
+from sssd_cp.core.layers.s4.hippo.hippo import HippoSSKernel
 
 
 @pytest.fixture

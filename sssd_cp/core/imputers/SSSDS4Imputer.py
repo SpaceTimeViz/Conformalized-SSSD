@@ -3,8 +3,8 @@ import math
 import torch
 import torch.nn as nn
 
-from sssd.core.layers.s4.s4_layer import S4Layer
-from sssd.core.utils import calc_diffusion_step_embedding
+from sssd_cp.core.layers.s4.s4_layer import S4Layer
+from sssd_cp.core.utils import calc_diffusion_step_embedding
 
 
 def swish(x):

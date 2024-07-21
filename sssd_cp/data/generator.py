@@ -54,7 +54,7 @@ class ArDataGenerator:
 
     Examples
     --------
-    >>> from sssd.data.generator import ArDataGenerator
+    >>> from sssd_cp.data.generator import ArDataGenerator
     >>> ArDataGenerator([0.1, 0.2, 0.3], series_length=3, std=1, seed=1, season_period=2).generate()
     array([1.62434536, -0.44932188, -0.2482348])
     """

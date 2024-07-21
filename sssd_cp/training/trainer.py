@@ -8,10 +8,10 @@ from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
-from sssd.core.model_specs import MASK_FN
-from sssd.training.utils import training_loss
-from sssd.utils.logger import setup_logger
-from sssd.utils.utils import find_max_epoch
+from sssd_cp.core.model_specs import MASK_FN
+from sssd_cp.training.utils import training_loss
+from sssd_cp.utils.logger import setup_logger
+from sssd_cp.utils.utils import find_max_epoch
 
 LOGGER = setup_logger()
 

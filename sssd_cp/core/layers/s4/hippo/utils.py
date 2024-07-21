@@ -7,7 +7,7 @@ from einops import rearrange, repeat
 from opt_einsum import contract_expression
 from opt_einsum.contract import ContractExpression
 
-from sssd.utils.logger import setup_logger
+from sssd_cp.utils.logger import setup_logger
 
 LOGGER = setup_logger()
 
@@ -111,7 +111,7 @@ def cauchy_cpu(v: torch.Tensor, z: torch.Tensor, w: torch.Tensor) -> torch.Tenso
 def cauchy_wrapper(v: torch.Tensor, z: torch.Tensor, w: torch.Tensor) -> torch.Tensor:
     """ "CUDA extension for cauchy multiplication not found. Please check `install_extensions_cauchy` in envs/conda/utils.sh"""
     try:  # This module will be downloaded from s4 repo
-        from sssd.core.layers.s4.hippo.cauchy import cauchy_mult
+        from sssd_cp.core.layers.s4.hippo.cauchy import cauchy_mult
 
         has_cauchy_extension = True
     except ModuleNotFoundError:

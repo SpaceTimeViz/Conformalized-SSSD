@@ -5,7 +5,7 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 
-from sssd.data.generator import ArDataGenerator
+from sssd_cp.data.generator import ArDataGenerator
 
 
 class ArDataset(Dataset):

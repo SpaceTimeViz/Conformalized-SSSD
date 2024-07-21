@@ -1,6 +1,6 @@
 import logging
 
-from sssd.utils.logger import setup_logger
+from sssd_cp.utils.logger import setup_logger
 
 
 def test_setup_logger():

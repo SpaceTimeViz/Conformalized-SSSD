@@ -3,7 +3,7 @@ from unittest.mock import patch
 import numpy as np
 import pytest
 
-from sssd.inference.utils import (
+from sssd_cp.inference.utils import (
     adjust_PI,
     compute_E_star,
     coverage_rate,
@@ -23,7 +23,7 @@ def mock_folder_files():
 def test_read_multiple_imputations(mock_listdir, mock_exists, mock_folder_files):
     mock_exists.return_value = True
     mock_listdir.return_value = mock_folder_files
-    with patch("sssd.inference.utils.read_missing_k_data") as mock_read_missing_k_data:
+    with patch("sssd_cp.inference.utils.read_missing_k_data") as mock_read_missing_k_data:
         mock_read_missing_k_data.return_value = np.zeros((2, 3, 24))
         result = read_multiple_imputations("folder_path", 24)
         assert result is not None

@@ -3,7 +3,7 @@ from typing import List
 import torch
 from torch.utils.data import DataLoader, random_split
 
-from sssd.data.dataset import ArDataset
+from sssd_cp.data.dataset import ArDataset
 
 
 class ArDataLoader:

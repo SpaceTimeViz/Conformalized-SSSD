@@ -2,17 +2,17 @@
 FROM pytorch/pytorch:2.2.0-cuda12.1-cudnn8-devel AS builder
 
 LABEL authors="Joseph Wang <egpivo@gmail.com>"\
-      version="0.0.16"
+      version="0.0.1"
 
 # Set the working directory in the container
-WORKDIR /sssd
+WORKDIR /sssd_cp
 
 # Copy only necessary project files and Conda environment setup
 COPY scripts/ scripts/
 COPY envs/ envs/
 COPY bin bin/
 COPY notebooks notebooks/
-COPY sssd sssd/
+COPY sssd_cp sssd_cp/
 COPY pyproject.toml pyproject.toml
 COPY README.md README.md
 
@@ -34,18 +34,18 @@ ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_P
 WORKDIR /sssd
 
 # Copy the Conda environment directory from the build stage to the appropriate location
-COPY --from=builder /opt/conda/envs/sssd/ /opt/conda/envs/sssd/
+COPY --from=builder /opt/conda/envs/sssd_cp/ /opt/conda/envs/sssd_cp/
 
 # Set up Conda environment
-ENV PATH /opt/conda/envs/sssd/bin:$PATH
-RUN echo "conda activate sssd" >> ~/.bashrc
+ENV PATH /opt/conda/envs/sssd_cp/bin:$PATH
+RUN echo "conda activate sssd-cp" >> ~/.bashrc
 
 # Copy necessary files from the build stage
-COPY --from=builder /sssd/bin bin/
-COPY --from=builder /sssd/scripts scripts/
-COPY --from=builder /sssd/envs envs/
-COPY --from=builder /sssd/notebooks notebooks/
-COPY --from=builder /sssd/sssd sssd/
-COPY --from=builder /sssd/pyproject.toml pyproject.toml
+COPY --from=builder /sssd_cp/bin bin/
+COPY --from=builder /sssd_cp/scripts scripts/
+COPY --from=builder /sssd_cp/envs envs/
+COPY --from=builder /sssd_cp/notebooks notebooks/
+COPY --from=builder /sssd_cp/sssd_cp sssd_cp/
+COPY --from=builder /sssd_cp/pyproject.toml pyproject.toml
 
 ENTRYPOINT ["/bin/bash", "-c", "/bin/bash scripts/docker/$ENTRYPOINT_SCRIPT"]

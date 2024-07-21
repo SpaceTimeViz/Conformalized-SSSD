@@ -10,8 +10,8 @@ import torch
 import yaml
 from torch import nn
 
-from sssd.core.imputers.SSSDS4Imputer import SSSDS4Imputer
-from sssd.utils.utils import (
+from sssd_cp.core.imputers.SSSDS4Imputer import SSSDS4Imputer
+from sssd_cp.utils.utils import (
     calc_diffusion_hyperparams,
     display_current_time,
     find_max_epoch,

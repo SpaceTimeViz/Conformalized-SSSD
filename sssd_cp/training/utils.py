@@ -2,7 +2,7 @@ from typing import Dict, Tuple
 
 import torch
 
-from sssd.utils.utils import std_normal
+from sssd_cp.utils.utils import std_normal
 
 
 def training_loss(

@@ -4,7 +4,7 @@ import pytest
 import torch
 from torch.utils.data import DataLoader
 
-from sssd.data.utils import (
+from sssd_cp.data.utils import (
     get_dataloader,
     load_and_split_training_data,
     load_testing_data,

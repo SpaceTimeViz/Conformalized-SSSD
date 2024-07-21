@@ -1,9 +1,9 @@
 import torch
 
-from sssd.core.imputers.DiffWaveImputer import DiffWaveImputer
-from sssd.core.imputers.SSSDS4Imputer import SSSDS4Imputer
-from sssd.core.imputers.SSSDSAImputer import SSSDSAImputer
-from sssd.core.utils import get_mask_bm, get_mask_forecast, get_mask_mnr, get_mask_rm
+from sssd_cp.core.imputers.DiffWaveImputer import DiffWaveImputer
+from sssd_cp.core.imputers.SSSDS4Imputer import SSSDS4Imputer
+from sssd_cp.core.imputers.SSSDSAImputer import SSSDSAImputer
+from sssd_cp.core.utils import get_mask_bm, get_mask_forecast, get_mask_mnr, get_mask_rm
 
 MASK_FN = {
     "rm": get_mask_rm,

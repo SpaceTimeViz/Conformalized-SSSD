@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from sssd.data.generator import ArDataGenerator, SeasonalityGenerator
+from sssd_cp.data.generator import ArDataGenerator, SeasonalityGenerator
 
 
 def test_generate():

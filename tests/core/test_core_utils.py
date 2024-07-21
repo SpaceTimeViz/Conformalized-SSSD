@@ -1,7 +1,7 @@
 import pytest
 import torch
 
-from sssd.core.utils import (
+from sssd_cp.core.utils import (
     calc_diffusion_step_embedding,
     get_mask_bm,
     get_mask_forecast,

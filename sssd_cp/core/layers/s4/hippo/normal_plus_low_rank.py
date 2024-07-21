@@ -5,7 +5,7 @@ import numpy as np
 import torch
 from opt_einsum import contract
 
-from sssd.core.layers.s4.hippo.utils import embed_c2r
+from sssd_cp.core.layers.s4.hippo.utils import embed_c2r
 
 Matrix = np.ndarray
 

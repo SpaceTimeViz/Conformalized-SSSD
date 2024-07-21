@@ -6,10 +6,10 @@ import torch.nn.functional as F
 from einops import rearrange
 from opt_einsum import contract
 
-from sssd.core.layers.activation import Activation
-from sssd.core.layers.linear import LinearActivation
-from sssd.core.layers.s4.hippo.hippo import HippoSSKernel
-from sssd.utils.logger import setup_logger
+from sssd_cp.core.layers.activation import Activation
+from sssd_cp.core.layers.linear import LinearActivation
+from sssd_cp.core.layers.s4.hippo.hippo import HippoSSKernel
+from sssd_cp.utils.logger import setup_logger
 
 LOGGER = setup_logger()
 

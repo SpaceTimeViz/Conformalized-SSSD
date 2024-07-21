@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 import torch
 
-from sssd.core.layers.s4.hippo.utils import (
+from sssd_cp.core.layers.s4.hippo.utils import (
     cauchy_cpu,
     cauchy_wrapper,
     compute_fft_transform,

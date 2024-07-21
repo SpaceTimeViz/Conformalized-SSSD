@@ -5,7 +5,7 @@ import torch.nn as nn
 from einops import rearrange, repeat
 from opt_einsum import contract
 
-from sssd.core.layers.s4.hippo.utils import (
+from sssd_cp.core.layers.s4.hippo.utils import (
     _c2r,
     _conj,
     _r2c,
@@ -21,7 +21,7 @@ from sssd.core.layers.s4.hippo.utils import (
     power,
     repeat_along_additional_dimension,
 )
-from sssd.utils.logger import setup_logger
+from sssd_cp.utils.logger import setup_logger
 
 LOGGER = setup_logger()
 

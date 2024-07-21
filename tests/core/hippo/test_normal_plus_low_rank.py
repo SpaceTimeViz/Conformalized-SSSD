@@ -1,7 +1,7 @@
 import pytest
 import torch
 
-from sssd.core.layers.s4.hippo.normal_plus_low_rank import (
+from sssd_cp.core.layers.s4.hippo.normal_plus_low_rank import (
     FourierNormalPlusLowRank,
     LagtNormalPlusLowRank,
     LegsNormalPlusLowRank,

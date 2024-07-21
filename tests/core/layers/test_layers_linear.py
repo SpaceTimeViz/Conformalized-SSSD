@@ -1,7 +1,7 @@
 import pytest
 import torch
 
-from sssd.core.layers.linear import LinearActivation, TransposedLinear
+from sssd_cp.core.layers.linear import LinearActivation, TransposedLinear
 
 
 @pytest.mark.parametrize(

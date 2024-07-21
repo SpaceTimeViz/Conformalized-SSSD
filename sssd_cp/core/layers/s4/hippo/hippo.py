@@ -3,10 +3,10 @@ from typing import Dict, Optional, Tuple
 import torch
 import torch.nn as nn
 
-from sssd.core.layers.s4.hippo.normal_plus_low_rank import NormalPlusLowRank
-from sssd.core.layers.s4.hippo.state_space import SSKernelNPLR
-from sssd.core.layers.s4.hippo.utils import generate_dt
-from sssd.utils.logger import setup_logger
+from sssd_cp.core.layers.s4.hippo.normal_plus_low_rank import NormalPlusLowRank
+from sssd_cp.core.layers.s4.hippo.state_space import SSKernelNPLR
+from sssd_cp.core.layers.s4.hippo.utils import generate_dt
+from sssd_cp.utils.logger import setup_logger
 
 LOGGER = setup_logger()
 

@@ -1,8 +1,8 @@
 import pytest
 import torch
 
-from sssd.core.imputers.SSSDS4Imputer import SSSDS4Imputer
-from sssd.training.utils import training_loss
+from sssd_cp.core.imputers.SSSDS4Imputer import SSSDS4Imputer
+from sssd_cp.training.utils import training_loss
 
 
 @pytest.fixture

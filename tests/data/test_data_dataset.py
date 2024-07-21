@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 import torch
 
-from sssd.data.dataset import ArDataset
+from sssd_cp.data.dataset import ArDataset
 
 
 @pytest.fixture
