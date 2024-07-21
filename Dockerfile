@@ -1,5 +1,5 @@
 # Stage 1: Build stage
-FROM egpivo/sssd-cp:latest AS builder
+FROM egpivo/sssd-cp:v0.0.1 AS builder
 
 LABEL authors="Joseph Wang <egpivo@gmail.com>"\
       version="0.0.1"
@@ -27,7 +27,7 @@ RUN bash envs/conda/build_conda_env.sh && \
 FROM continuumio/miniconda3:latest
 
 # Set the working directory in the container
-WORKDIR /sssd
+WORKDIR /sssd_cp
 
 # Copy the Conda environment directory from the build stage to the appropriate location
 COPY --from=builder /opt/conda/envs/sssd-cp/ /opt/conda/envs/sssd-cp/

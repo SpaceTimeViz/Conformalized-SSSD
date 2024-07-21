@@ -38,7 +38,7 @@ run-local-diffusion:
 ## Docker-related commands
 build-docker:
 	@echo "Building Docker image..."
-	@docker build -t $(DOCKER_USERNAME)/sssd:latest -f Dockerfile .
+	@docker build -t $(DOCKER_USERNAME)/sssd-cp:latest -f Dockerfile .
 
 push-docker:
 	@echo "Pushing Docker image to Docker Hub..."

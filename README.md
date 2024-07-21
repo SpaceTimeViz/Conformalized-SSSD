@@ -1,6 +1,6 @@
 # Conformalized SSSD
 <p align="left">
-  <a href="https://github.com/SpaceTimeViz/Confirmalized-SSSD/actions"><img src="https://github.com/SpaceTimeViz/Confirmalized-SSSD/workflows/Test/badge.svg" alt="GitHub Actions"/></a>
+  <a href="https://github.com/SpaceTimeViz/Conformalized-SSSD/actions"><img src="https://github.com/SpaceTimeViz/Conformalized-SSSD/workflows/Test/badge.svg" alt="GitHub Actions"/></a>
   <a href="https://codecov.io/gh/SpaceTimeViz/Conformalized-SSSD" ><img src="https://codecov.io/gh/SpaceTimeViz/Conformalized-SSSD/graph/badge.svg?token=VLFBKCYB93"/> 
  </a>
 </p>
