@@ -5,21 +5,15 @@ on:
     branches:
       - gh-pages
 
-env:
-  BASE_URL: {% raw %}${{ github.event.repository.name }}{% endraw %}
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  deploy-book:
+  build:
     runs-on: ubuntu-latest
     permissions:
       pages: write
       id-token: write
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
@@ -29,6 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r experiment/requirements.txt
+          pip install jupyter-book
 
       - name: Build the book
         run: |
@@ -42,4 +37,4 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
