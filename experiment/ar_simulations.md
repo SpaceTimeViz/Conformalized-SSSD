@@ -1,4 +1,5 @@
-# Setup
+# AR Simulation
+## Setup
 
 - Data generation: Let ${y_1,\cdots,y_T}$ be a data series. The data is generated according to the following model: $$ y_{t+1} = \phi y_t + \epsilon_{t+1}, \quad \epsilon_{t+1} \sim N(0, \sigma^2),$$where $\phi = 0.8$ and $\sigma^2 = 1$.
 - Settings: 
@@ -8,7 +9,7 @@
 - For each setting, we generate $10000$ data series as training dataset and $1000$ as test dataset. 
 
 
-# Accuracy and Variability of the Prediction Results
+## Accuracy and Variability of the Prediction Results
 
 Prediction $\hat{y}_T = \frac{1}{m}\sum_{i=1}^{m}\hat{y}_{T,i}$
 
