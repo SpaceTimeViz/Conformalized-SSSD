@@ -1,7 +1,7 @@
 # AR Simulation
 ## Setup
 
-- Data generation: Let ${y_1,\cdots,y_T}$ be a data series. The data is generated according to the following model: $$y_{t+1} = \phi y_t + \epsilon_{t+1}, \quad \epsilon_{t+1} \sim N(0, \sigma^2),$$ where $\phi = 0.8$ and $\sigma^2 = 1$.
+- Data generation: Let ${y_1,\cdots,y_T}$ be a data series. The data is generated according to the following model: $y_{t+1} = \phi y_t + \epsilon_{t+1}, \quad \epsilon_{t+1} \sim N(0, \sigma^2),$ where $\phi = 0.8$ and $\sigma^2 = 1$.
 - Settings: 
 	  - Setting 1 with $T=3$
 	  - Setting 2 with $T=10$
