@@ -23,12 +23,12 @@ clean-docker:
 ## Install development dependencies
 install-dev:
 	@echo "Installing development dependencies..."
-	@$(SHELL) envs/conda/build_conda_env.sh -c sssd
+	@$(SHELL) envs/conda/build_conda_env.sh -c sssd-cp
 
 ## Run tests
 test:
 	@echo "Running tests..."
-	@$(EXECUTABLE) pytest --cov=sssd
+	@$(EXECUTABLE) pytest --cov=sssd-cp
 
 ## Run diffusion process on local machine
 run-local-diffusion:
