@@ -7,7 +7,7 @@ import torch
 from sklearn.metrics import mean_absolute_percentage_error, mean_squared_error
 from torch.utils.data import DataLoader
 
-from sssd_cp.core.model_specs import MASK_FN
+from sssd_cp.core.model_specs import MASK_FN, create_forecast_mask
 from sssd_cp.utils.logger import setup_logger
 from sssd_cp.utils.utils import find_max_epoch, sampling
 
@@ -128,7 +128,7 @@ class DiffusionGenerator:
         all_mapes = []
         for index, (batch,) in enumerate(self.dataloader):
             batch = batch.to(self.device)
-            mask = self._update_mask(batch)
+            mask = create_forecast_mask(batch, self.missing_k, self.device)
             batch = batch.permute(0, 2, 1)
 
             generated_series = (

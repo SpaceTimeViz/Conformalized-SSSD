@@ -1,3 +1,5 @@
+from typing import Union
+
 import torch
 
 from sssd_cp.core.imputers.DiffWaveImputer import DiffWaveImputer
@@ -29,3 +31,15 @@ def setup_model(
     if model_settings is None:
         raise ValueError(f"Please enter model settings in config")
     return MODELS[use_model](**model_settings, device=device).to(device)
+
+
+def create_forecast_mask(
+    batch: torch.Tensor, unseen_length: int, device: Union[torch.device, str]
+) -> torch.Tensor:
+    """Create mask based on the given batch."""
+    transposed_mask = get_mask_forecast(batch[0], unseen_length)
+    return (
+        transposed_mask.permute(1, 0)
+        .repeat(batch.size()[0], 1, 1)
+        .to(device, dtype=torch.float32)
+    )

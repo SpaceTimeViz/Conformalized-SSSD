@@ -117,3 +117,7 @@ def test_calc_diffusion_step_embedding():
 
     # Check if the embeddings are on the correct device
     assert embeddings.device == torch.device("cpu")
+
+
+if __name__ == "__main__":
+    pytest.main()
