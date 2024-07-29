@@ -155,12 +155,8 @@ def sampling(
             for t in range(T - 1, -1, -1):
                 if only_generate_missing == 1:
                     x = x * (1 - mask).float() + cond * mask.float()
-                diffusion_steps = (t * torch.ones((batch_size, 1))).to(
-                    device
-                )
-                epsilon_theta = net(
-                    (x, cond, mask, diffusion_steps)
-                )
+                diffusion_steps = (t * torch.ones((batch_size, 1))).to(device)
+                epsilon_theta = net((x, cond, mask, diffusion_steps))
                 x = (
                     x - (1 - Alpha[t]) / torch.sqrt(1 - Alpha_bar[t]) * epsilon_theta
                 ) / torch.sqrt(Alpha[t])
@@ -235,4 +231,3 @@ def load_yaml_file(file_path: str) -> Any:
 
     with open(file_path, "rt") as f:
         return yaml.safe_load(f)
-

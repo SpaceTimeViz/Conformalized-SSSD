@@ -8,8 +8,7 @@ from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
-from sssd_cp.core.model_specs import MASK_FN
-from sssd_cp.core.model_specs import create_forecast_mask
+from sssd_cp.core.model_specs import MASK_FN, create_forecast_mask
 from sssd_cp.training.utils import training_loss
 from sssd_cp.utils.logger import setup_logger
 from sssd_cp.utils.utils import find_max_epoch
@@ -113,7 +112,6 @@ class DiffusionTrainer:
                 },
                 os.path.join(self.output_directory, f"{n_iter}.pkl"),
             )
-
 
     def _train_per_epoch(self) -> torch.Tensor:
         for (batch,) in tqdm(self.dataloader):

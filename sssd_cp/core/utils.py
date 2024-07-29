@@ -122,5 +122,3 @@ def calc_diffusion_step_embedding(
     diffusion_step_embed = torch.cat((torch.sin(_embed), torch.cos(_embed)), 1)
 
     return diffusion_step_embed
-
-

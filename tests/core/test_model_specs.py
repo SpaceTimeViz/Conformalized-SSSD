@@ -13,7 +13,6 @@ def sample_batch() -> torch.Tensor:
     return torch.randn(batch_size, sequence_length, feature_dim)
 
 
-
 def test_create_forecast_mask(sample_batch: torch.Tensor) -> None:
     unseen_length = 5
     device = torch.device("cpu")
@@ -28,7 +27,6 @@ def test_create_forecast_mask(sample_batch: torch.Tensor) -> None:
 
     # Check the dtype of the mask
     assert mask.dtype == torch.float32
-
 
 
 if __name__ == "__main__":

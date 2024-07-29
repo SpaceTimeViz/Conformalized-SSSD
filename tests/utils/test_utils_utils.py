@@ -9,6 +9,7 @@ import pytest
 import torch
 import yaml
 from torch import nn
+from torch.utils.data import Dataset, Subset
 
 from sssd_cp.core.imputers.SSSDS4Imputer import SSSDS4Imputer
 from sssd_cp.data.utils import DataSplitter
@@ -24,12 +25,6 @@ from sssd_cp.utils.utils import (
     sampling,
     std_normal,
 )
-
-import pytest
-import torch
-from torch.utils.data import Dataset, Subset
-from typing import Tuple
-
 
 
 def test_generate_date_from_seq_default_start_date():
@@ -337,6 +332,7 @@ def test_data_splitter(mock_dataset: Dataset, data_splitter: DataSplitter) -> No
     test_content = [mock_dataset[i] for i in test_indices]
 
     assert sorted(train_content + test_content) == list(range(100))
+
 
 if __name__ == "__main__":
     unittest.main()

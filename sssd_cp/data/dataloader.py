@@ -6,6 +6,7 @@ from torch.utils.data import DataLoader
 from sssd_cp.data.dataset import ArDataset
 from sssd_cp.data.utils import DataSplitter
 
+
 class ArDataLoader:
     def __init__(
         self,

@@ -4,6 +4,7 @@ from torch.utils.data import DataLoader
 
 from sssd_cp.data.dataloader import ArDataLoader
 
+
 @pytest.fixture
 def ar_dataloader() -> ArDataLoader:
     num_series = 1024
@@ -35,12 +36,16 @@ def ar_dataloader() -> ArDataLoader:
         seeds=seeds,
     )
 
+
 def test_train_dataloader(ar_dataloader: ArDataLoader) -> None:
     train_loader = ar_dataloader.train_dataloader
     assert isinstance(train_loader, DataLoader)
-    assert len(train_loader.dataset) == int(0.8 * 1024)  # Should match training_num_series
+    assert len(train_loader.dataset) == int(
+        0.8 * 1024
+    )  # Should match training_num_series
     batch = next(iter(train_loader))
     assert batch.shape[0] == ar_dataloader.batch_size
+
 
 def test_test_dataloader(ar_dataloader: ArDataLoader) -> None:
     test_loader = ar_dataloader.test_dataloader

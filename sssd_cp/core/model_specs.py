@@ -32,7 +32,10 @@ def setup_model(
         raise ValueError(f"Please enter model settings in config")
     return MODELS[use_model](**model_settings, device=device).to(device)
 
-def create_forecast_mask(batch: torch.Tensor, unseen_length: int, device:  Union[torch.device, str]) -> torch.Tensor:
+
+def create_forecast_mask(
+    batch: torch.Tensor, unseen_length: int, device: Union[torch.device, str]
+) -> torch.Tensor:
     """Create mask based on the given batch."""
     transposed_mask = get_mask_forecast(batch[0], unseen_length)
     return (
