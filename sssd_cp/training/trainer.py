@@ -9,6 +9,7 @@ from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
 from sssd_cp.core.model_specs import MASK_FN
+from sssd_cp.core.model_specs import create_forecast_mask
 from sssd_cp.training.utils import training_loss
 from sssd_cp.utils.logger import setup_logger
 from sssd_cp.utils.utils import find_max_epoch
@@ -113,18 +114,11 @@ class DiffusionTrainer:
                 os.path.join(self.output_directory, f"{n_iter}.pkl"),
             )
 
-    def _update_mask(self, batch: torch.Tensor) -> torch.Tensor:
-        transposed_mask = MASK_FN[self.masking](batch[0], self.missing_k)
-        return (
-            transposed_mask.permute(1, 0)
-            .repeat(batch.size()[0], 1, 1)
-            .to(self.device, dtype=torch.float32)
-        )
 
     def _train_per_epoch(self) -> torch.Tensor:
         for (batch,) in tqdm(self.dataloader):
             batch = batch.to(self.device)
-            mask = self._update_mask(batch)
+            mask = create_forecast_mask(batch, self.missing_k, self.device)
             loss_mask = ~mask.bool()
 
             batch = batch.permute(0, 2, 1)

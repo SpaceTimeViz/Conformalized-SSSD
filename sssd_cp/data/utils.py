@@ -4,7 +4,12 @@ from typing import Union
 import numpy as np
 import pandas as pd
 import torch
-from torch.utils.data import DataLoader, TensorDataset
+from torch.utils.data import DataLoader, TensorDataset, Dataset
+import numpy as np
+import torch
+from torch.utils.data import Dataset, Subset
+from typing import Tuple
+
 
 
 def merge_all_time(df: pd.DataFrame) -> pd.DataFrame:
@@ -125,3 +130,17 @@ def get_dataloader(
         pin_memory=pin_memory,
         num_workers=num_workers,
     )
+
+class DataSplitter:
+    def __init__(self, train_size: int, generator: torch.Generator):
+        self.train_size = train_size
+        self.generator = generator
+
+    def split(self, data: Dataset) -> Tuple[Subset, Subset]:
+        num_samples = len(data)
+        indices = torch.randperm(num_samples, generator=self.generator).tolist()
+        train_indices = indices[:self.train_size]
+        test_indices = indices[self.train_size:]
+        train_data = Subset(data, train_indices)
+        test_data = Subset(data, test_indices)
+        return train_data, test_data

@@ -1,16 +1,17 @@
-from typing import List
+from typing import List, Optional
 
 import torch
-from torch.utils.data import DataLoader, random_split
+from torch.utils.data import DataLoader
 
 from sssd_cp.data.dataset import ArDataset
-
+from sssd_cp.data.utils import DataSplitter
 
 class ArDataLoader:
     def __init__(
         self,
         coefficients: List[float],
-        num_series: int,
+        training_num_series: int,
+        testing_num_series: int,
         series_length: int,
         std: float,
         intercept: float,
@@ -19,11 +20,11 @@ class ArDataLoader:
         device: torch.device,
         num_workers: int,
         training_rate: float,
-        seeds: List[int] = None,
+        seeds: Optional[List[int]] = None,
     ) -> None:
         self.dataset = ArDataset(
             coefficients=coefficients,
-            num_series=num_series,
+            num_series=training_num_series + testing_num_series,
             series_length=series_length,
             std=std,
             season_period=season,
@@ -34,19 +35,15 @@ class ArDataLoader:
         self.device = device
         self.num_workers = num_workers
         self.generator = torch.Generator()
-        self.generator.manual_seed(seeds[0])
-        self.train_size = int(training_rate * num_series)
-        self.test_size = num_series - self.train_size
+        self.generator.manual_seed(seeds[0] if seeds else 0)
+
+        data_splitter = DataSplitter(training_num_series, self.generator)
+        self.train_data, self.test_data = data_splitter.split(self.dataset)
 
     @property
     def train_dataloader(self) -> DataLoader:
-        train_dataset, _ = random_split(
-            dataset=self.dataset,
-            lengths=[self.train_size, self.test_size],
-            generator=self.generator,
-        )
         return DataLoader(
-            train_dataset,
+            self.train_data,
             shuffle=True,
             batch_size=self.batch_size,
             num_workers=self.num_workers,
@@ -54,13 +51,8 @@ class ArDataLoader:
 
     @property
     def test_dataloader(self) -> DataLoader:
-        _, test_dataset = random_split(
-            dataset=self.dataset,
-            lengths=[self.train_size, self.test_size],
-            generator=self.generator,
-        )
         return DataLoader(
-            test_dataset,
+            self.test_data,
             shuffle=False,
             batch_size=self.batch_size,
             num_workers=self.num_workers,

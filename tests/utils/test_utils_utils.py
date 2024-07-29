@@ -11,6 +11,7 @@ import yaml
 from torch import nn
 
 from sssd_cp.core.imputers.SSSDS4Imputer import SSSDS4Imputer
+from sssd_cp.data.utils import DataSplitter
 from sssd_cp.utils.utils import (
     calc_diffusion_hyperparams,
     display_current_time,
@@ -23,6 +24,12 @@ from sssd_cp.utils.utils import (
     sampling,
     std_normal,
 )
+
+import pytest
+import torch
+from torch.utils.data import Dataset, Subset
+from typing import Tuple
+
 
 
 def test_generate_date_from_seq_default_start_date():
@@ -280,6 +287,56 @@ class TestLoadYamlFile(unittest.TestCase):
         with self.assertRaises(yaml.YAMLError):
             load_yaml_file("mock_file.yaml")
 
+
+class MockDataset(Dataset):
+    def __init__(self, data):
+        self.data = data
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        return self.data[idx]
+
+
+@pytest.fixture
+def mock_dataset() -> Dataset:
+    # Creating a mock dataset with 100 samples
+    data = list(range(100))
+    return MockDataset(data)
+
+
+@pytest.fixture
+def data_splitter() -> DataSplitter:
+    train_size = 80  # 80% training data
+    generator = torch.Generator().manual_seed(42)  # Fixed seed for reproducibility
+    return DataSplitter(train_size=train_size, generator=generator)
+
+
+def test_data_splitter(mock_dataset: Dataset, data_splitter: DataSplitter) -> None:
+    train_data, test_data = data_splitter.split(mock_dataset)
+
+    # Check if the split sizes are correct
+    assert len(train_data) == data_splitter.train_size
+    assert len(test_data) == len(mock_dataset) - data_splitter.train_size
+
+    # Check if the data types are correct
+    assert isinstance(train_data, Subset)
+    assert isinstance(test_data, Subset)
+
+    # Check if the indices are unique and cover the entire dataset
+    train_indices = train_data.indices
+    test_indices = test_data.indices
+    all_indices = train_indices + test_indices
+
+    assert len(all_indices) == len(mock_dataset)
+    assert len(set(all_indices)) == len(mock_dataset)
+
+    # Check if the data content matches the original dataset
+    train_content = [mock_dataset[i] for i in train_indices]
+    test_content = [mock_dataset[i] for i in test_indices]
+
+    assert sorted(train_content + test_content) == list(range(100))
 
 if __name__ == "__main__":
     unittest.main()

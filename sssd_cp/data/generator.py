@@ -70,7 +70,7 @@ class ArDataGenerator:
         seasonality_method: str = "sine",
     ) -> None:
         ar_parameters = [1] + [-1 * coefficient for coefficient in coefficients]
-        self.ar_process = ArmaProcess(ar_parameters, [1, 0])
+        self.ar_process = ArmaProcess(ar_parameters, [1])
         self.series_length = series_length
         self.std = std
         self.seed = seed

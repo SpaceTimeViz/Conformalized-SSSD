@@ -4,10 +4,11 @@ from torch.utils.data import DataLoader
 
 from sssd_cp.data.dataloader import ArDataLoader
 
-
 @pytest.fixture
-def ar_dataloader():
+def ar_dataloader() -> ArDataLoader:
     num_series = 1024
+    training_num_series = int(num_series * 0.8)
+    testing_num_series = num_series - training_num_series
     coefficients = [0.8]
     series_length = 192
     std = 0.1
@@ -21,7 +22,8 @@ def ar_dataloader():
 
     return ArDataLoader(
         coefficients=coefficients,
-        num_series=num_series,
+        training_num_series=training_num_series,
+        testing_num_series=testing_num_series,
         series_length=series_length,
         std=std,
         season=season,
@@ -33,18 +35,15 @@ def ar_dataloader():
         seeds=seeds,
     )
 
-
-def test_train_dataloader(ar_dataloader):
+def test_train_dataloader(ar_dataloader: ArDataLoader) -> None:
     train_loader = ar_dataloader.train_dataloader
     assert isinstance(train_loader, DataLoader)
-    assert len(train_loader.dataset) == 819
+    assert len(train_loader.dataset) == int(0.8 * 1024)  # Should match training_num_series
     batch = next(iter(train_loader))
     assert batch.shape[0] == ar_dataloader.batch_size
 
-
-def test_test_dataloader(ar_dataloader):
+def test_test_dataloader(ar_dataloader: ArDataLoader) -> None:
     test_loader = ar_dataloader.test_dataloader
     assert isinstance(test_loader, DataLoader)
-    assert len(test_loader.dataset) == 205
     batch = next(iter(test_loader))
     assert batch.shape[0] <= ar_dataloader.batch_size

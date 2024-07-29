@@ -235,3 +235,4 @@ def load_yaml_file(file_path: str) -> Any:
 
     with open(file_path, "rt") as f:
         return yaml.safe_load(f)
+

@@ -1,12 +1,11 @@
 import random
-from typing import List, Union
+from typing import List, Union, Optional
 
 import numpy as np
 import torch
 from torch.utils.data import Dataset
 
 from sssd_cp.data.generator import ArDataGenerator
-
 
 class ArDataset(Dataset):
     """Dataset class for generating autoregressive (AR) time series data.
@@ -24,8 +23,7 @@ class ArDataset(Dataset):
         season_period (int, optional): Periodicity for the seasonal component.
             If not provided, no seasonality is added.
         seeds (List[int], optional): List of seeds for random number generation. Defaults to None.
-        intercept (int, optional): Intercept of an AR process
-            Defaults to False.
+        intercept (float, optional): Intercept of the AR process. Defaults to 0.
 
     Examples:
         >>> coefficients = [0.1, 0.2, 0.3]
@@ -46,18 +44,16 @@ class ArDataset(Dataset):
         num_series: int,
         series_length: int,
         std: float = 1.0,
-        season_period: int = None,
-        seeds: List[int] = None,
-        intercept: float = 0,
+        season_period: Optional[int] = None,
+        seeds: Optional[List[int]] = None,
+        intercept: float = 0.0,
     ) -> None:
         self.num_series = num_series
         self.coefficients = coefficients
         self.series_length = series_length
         self.std = std
         self.season_period = season_period
-        self.seeds = seeds or [
-            random.randint(0, 2**32 - 1) for _ in range(num_series)
-        ]
+        self.seeds = seeds or [random.randint(0, 2**32 - 1) for _ in range(num_series)]
         self.intercept = intercept
         self.data = self._generate_data()
 

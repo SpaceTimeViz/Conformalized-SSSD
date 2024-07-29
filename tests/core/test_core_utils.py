@@ -1,6 +1,10 @@
 import pytest
 import torch
 
+
+import pytest
+import torch
+
 from sssd_cp.core.utils import (
     calc_diffusion_step_embedding,
     get_mask_bm,
@@ -117,3 +121,8 @@ def test_calc_diffusion_step_embedding():
 
     # Check if the embeddings are on the correct device
     assert embeddings.device == torch.device("cpu")
+
+
+
+if __name__ == "__main__":
+    pytest.main()
