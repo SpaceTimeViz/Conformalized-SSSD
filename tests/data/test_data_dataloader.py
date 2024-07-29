@@ -17,7 +17,6 @@ def ar_dataloader() -> ArDataLoader:
     batch_size = 64
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     num_workers = 4
-    training_rate = 0.8
     seeds = list(range(num_series))
     intercept = 0
 
@@ -31,7 +30,6 @@ def ar_dataloader() -> ArDataLoader:
         batch_size=batch_size,
         device=device,
         num_workers=num_workers,
-        training_rate=training_rate,
         intercept=intercept,
         seeds=seeds,
     )
