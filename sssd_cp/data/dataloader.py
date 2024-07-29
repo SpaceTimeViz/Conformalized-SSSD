@@ -20,7 +20,6 @@ class ArDataLoader:
         batch_size: int,
         device: torch.device,
         num_workers: int,
-        training_rate: float,
         seeds: Optional[List[int]] = None,
     ) -> None:
         self.dataset = ArDataset(
