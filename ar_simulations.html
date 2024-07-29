@@ -395,17 +395,27 @@ document.write(`
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Data generation: Let <span class="math notranslate nohighlight">\({y_1,\cdots,y_T}\)</span> be a data series. The data is generated according to the following model: <span class="math notranslate nohighlight">\(y_{t+1} = \phi y_t + \epsilon_{t+1}, \quad \epsilon_{t+1} \sim N(0, \sigma^2),\)</span> where <span class="math notranslate nohighlight">\(\phi = 0.8\)</span> and <span class="math notranslate nohighlight">\(\sigma^2 = 1\)</span>.</p></li>
-<li><p>Settings:
-- Setting 1 with <span class="math notranslate nohighlight">\(T=3\)</span>
-- Setting 2 with <span class="math notranslate nohighlight">\(T=10\)</span>
-- Setting 3 with <span class="math notranslate nohighlight">\(T=100\)</span></p></li>
+<li><p>Data generation: Let <span class="math notranslate nohighlight">\({y_1,\cdots,y_T}\)</span> be a data series. The data is generated according to the following model with <span class="math notranslate nohighlight">\(\phi = 0.8\)</span> and <span class="math notranslate nohighlight">\(\sigma^2 = 1\)</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ y_{t+1} = \phi y_t + \epsilon_{t+1}, \quad \epsilon_{t+1} \sim N(0, \sigma^2)\]</div>
+<ul class="simple">
+<li><p>Settings:</p>
+<ul>
+<li><p>Setting 1 with <span class="math notranslate nohighlight">\(T=3\)</span></p></li>
+<li><p>Setting 2 with <span class="math notranslate nohighlight">\(T=10\)</span></p></li>
+<li><p>Setting 3 with <span class="math notranslate nohighlight">\(T=100\)</span></p></li>
+</ul>
+</li>
 <li><p>For each setting, we generate <span class="math notranslate nohighlight">\(10000\)</span> data series as training dataset and <span class="math notranslate nohighlight">\(1000\)</span> as test dataset.</p></li>
 </ul>
 </section>
 <section id="accuracy-and-variability-of-the-prediction-results">
 <h2>Accuracy and Variability of the Prediction Results<a class="headerlink" href="#accuracy-and-variability-of-the-prediction-results" title="Link to this heading">#</a></h2>
-<p>Prediction <span class="math notranslate nohighlight">\(\hat{y}_T = \frac{1}{m}\sum_{i=1}^{m}\hat{y}_{T,i}\)</span></p>
+<ul>
+<li><p>Prediction <span class="math notranslate nohighlight">\(\hat{y}_T = \frac{1}{m}\sum_{i=1}^{m}\hat{y}_{T,i}\)</span></p></li>
+<li></li>
+<li><p>1st version</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Criterion</p></th>
@@ -493,6 +503,97 @@ document.write(`
 </tbody>
 </table>
 </div>
+</li>
+<li><p>2nd version</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Criterion</p></th>
+<th class="head text-center"><p>m=1</p></th>
+<th class="head text-center"><p>m=5</p></th>
+<th class="head text-center"><p>m=100</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Setting 1</strong></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(E[(\hat{y}_3 - y_3)^2]\)</span></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(E[(\hat{y}_3 - 0.8y_2)^2]\)</span></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(E(\hat{y}_3 - 0.8y_2)\)</span></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(var(\hat{y}_3 - 0.8y_2)\)</span></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Setting 2</strong></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(E[(\hat{y}_{10} - y_{10})^2]\)</span></p></td>
+<td class="text-center"><p>1.245</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>1.286</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(E[(\hat{y}_{10} - 0.8y_9)^2]\)</span></p></td>
+<td class="text-center"><p>0.275</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>0.313</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(E(\hat{y}_{10} - 0.8y_9)\)</span></p></td>
+<td class="text-center"><p>-0.002</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>-0.009</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(var(\hat{y}_{10} - 0.8y_9)\)</span></p></td>
+<td class="text-center"><p>0.275</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>0.313</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Setting 3</strong></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(E[(\hat{y}_{100} - y_{100})^2]\)</span></p></td>
+<td class="text-center"><p>1.188</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(E[(\hat{y}_{100} - 0.8y_{99})^2]\)</span></p></td>
+<td class="text-center"><p>0.160</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(E(\hat{y}_{100} - 0.8y_{99})\)</span></p></td>
+<td class="text-center"><p>0.027</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(var(\hat{y}_{100} - 0.8y_{99})\)</span></p></td>
+<td class="text-center"><p>0.159</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
 </section>
 </section>
 
