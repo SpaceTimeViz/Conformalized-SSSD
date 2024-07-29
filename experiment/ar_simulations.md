@@ -5,16 +5,16 @@
 
 $$ y_{t+1} = \phi y_t + \epsilon_{t+1}, \quad \epsilon_{t+1} \sim N(0, \sigma^2)$$
 
-- Settings: 
+- Settings:
   - Setting 1 with $T=3$
   - Setting 2 with $T=10$
   - Setting 3 with $T=100$
-- For each setting, we generate $10000$ data series as training dataset and $1000$ as test dataset. 
+- For each setting, we generate $10000$ data series as training dataset and $1000$ as test dataset.
 
 
 ## Accuracy and Variability of the Prediction Results
-
 - Prediction $\hat{y}_T = \frac{1}{m}\sum_{i=1}^{m}\hat{y}_{T,i}$
+-
 - 1st version
 
     | Criterion                          |  m=1   |  m=5   | m=100  |
