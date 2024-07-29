@@ -1,4 +1,4 @@
-# AR Simulation
+# AR(1) Simulation
 ## Setup
 
 - Data generation: Let ${y_1,\cdots,y_T}$ be a data series. The data is generated according to the following model with $\phi = 0.8$ and $\sigma^2 = 1$:
@@ -14,7 +14,7 @@ $$ y_{t+1} = \phi y_t + \epsilon_{t+1}, \quad \epsilon_{t+1} \sim N(0, \sigma^2)
 
 ## Accuracy and Variability of the Prediction Results
 - Target prediction: $\hat{y}_T = \frac{1}{m}\sum_{i=1}^{m}\hat{y}_{T,i}$
-- Result: 1st version
+- Result: 1st version (using original SSSD code)
 
     | Criterion                                        |  m=1   |  m=5   | m=100  |
     |:-------------------------------------------------| :----: | :----: | :----: |
@@ -34,7 +34,7 @@ $$ y_{t+1} = \phi y_t + \epsilon_{t+1}, \quad \epsilon_{t+1} \sim N(0, \sigma^2)
     | $E(\hat{y}_{100} - 0.8y_{99})$                   | 0.062  | 0.055  | 0.054  |
     | $\text{Var}(\hat{y}_{100} - 0.8y_{99})$          | 0.288  |  0.25  | 0.241  |
 
-- Result: 2nd version
+- Result: 2nd version (optimized SSSD code)
 
     | Criterion                                 |        m=1       |  m=5   |        m=100         |
     |:------------------------------------------|:----------------:|:------:|:--------------------:|
@@ -49,7 +49,7 @@ $$ y_{t+1} = \phi y_t + \epsilon_{t+1}, \quad \epsilon_{t+1} \sim N(0, \sigma^2)
     | $E(\hat{y}_{10} - 0.8y_9)$                |       -0.002     | 0.004  |        -0.009        |
     | $\text{Var}(\hat{y}_{10} - 0.8y_9)$       |       0.275      | 0.288  |        0.313         |
     | **Setting 3**                             |                  |        |                      |
-    | $E[(\hat{y}_{100} - y_{100})^2]$          |       1.188      | 1.205  |                      |
-    | $E[(\hat{y}_{100} - 0.8y_{99})^2]$        |       0.160      | 0.189  |                      |
-    | $E(\hat{y}_{100} - 0.8y_{99})$            |       0.027      | 0.005  |                      |
-    | $\text{Var}(\hat{y}_{100} - 0.8y_{99})$             |       0.159      | 0.189  |                      |
+    | $E[(\hat{y}_{100} - y_{100})^2]$          |       1.188      | 1.205  |        1.111         |
+    | $E[(\hat{y}_{100} - 0.8y_{99})^2]$        |       0.160      | 0.189  |        0.145         |
+    | $E(\hat{y}_{100} - 0.8y_{99})$            |       0.027      | 0.005  |        -0.050        |
+    | $\text{Var}(\hat{y}_{100} - 0.8y_{99})$             |       0.159      | 0.189  |        0.143         |
