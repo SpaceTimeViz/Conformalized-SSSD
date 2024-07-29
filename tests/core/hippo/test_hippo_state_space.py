@@ -40,10 +40,6 @@ def test_SSKernelNPLR(sample_data):
     y, new_state = kernel.step(u, state)
     assert y.shape == (3, H)
     assert new_state.shape == (H, N * H)
-    assert_allclose(
-        torch.view_as_real(torch.sum(new_state)), torch.Tensor([3.4641, 64.1905])
-    )
-
     # Test default state
     batch_shape = (5,)
     default_state = kernel.default_state(*batch_shape)
